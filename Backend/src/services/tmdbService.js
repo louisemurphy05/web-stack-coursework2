@@ -5,10 +5,8 @@ const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p";
 
 class TMDBService {
   constructor() {
-    this.apiKey = process.env.TMDB_API_KEY;
-    if (!this.apiKey) {
-      console.warn("Warning: TMDB_API_KEY not set in environment variables");
-    }
+
+    this.apiKey = "YOUR_API_KEY_HERE"; 
   }
 
   /**
@@ -116,8 +114,8 @@ class TMDBService {
   /**
    * Search for movies
    * @param {string} query - Search query
-   * @param {string} year - Release year (optional)
-   * @param {number} genreId - Genre ID (optional)
+   * @param {string} year - Release year
+   * @param {number} genreId - Genre ID 
    * @param {number} page - Page number
    * @returns {Promise<Array>} List of matching movies
    */
