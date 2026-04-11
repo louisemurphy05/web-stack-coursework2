@@ -114,7 +114,8 @@
   cursor: pointer;
 }
 
-.register-btn .login-btn {
+.register-btn
+.login-btn {
   background: transparent;
   color: rgb(0, 0, 0);
   border: 1px solid white;
@@ -128,7 +129,81 @@
 /* --------------------- */
 /* REGISTER PAGE CSS */
 /* --------------------- */
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 98vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 10px;
+}
 
+.register-card {
+  width: 380px;
+  background: #0e0d0d;
+  padding: 40px;
+  border: 1.5px solid #858383;
+  border-radius: 25px;
+}
+
+.register-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 40px;
+  font-family: "Bagel Fat One", system-ui;
+  font-weight: normal;
+}
+
+.register-header h1 {
+  color: #d9d9d9;
+  font-size: 40px;
+  margin: 0;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.register-form label {
+  color: white;
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+
+.register-form input {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid #d9d9d9;
+  color: white;
+  padding: 8px 0;
+  margin-bottom: 20px;
+  outline: none;
+}
+
+.register-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 35px;
+  margin-top: 20px;
+}
+
+.register-buttons button {
+  width: 150px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  padding: 9px;
+  cursor: pointer;
+}
+
+.register-btn,
+.login-btn {
+  background: #f2f2f2;
+  color: black;
+  border: 1px solid white;
+}
 
 /* --------------------- */
 /* PROFILE PAGE CSS */
