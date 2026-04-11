@@ -51,8 +51,8 @@ function RegisterPage() {
 
               <button
                 className="register-btn" 
-                // onClick={handleRegister}>Create Account
-                onClick={() => (window.location.href = "/home")}>Create Account
+                onClick={handleRegister}>Create Account
+                {/* onClick={() => (window.location.href = "/home")}>Create Account */}
               </button>
 
             <button
