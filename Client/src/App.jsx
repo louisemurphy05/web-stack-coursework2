@@ -6,6 +6,8 @@ import SearchPage from "./pages/SearchPage";
 import MoviePage from "./pages/MoviePage";
 import ProfilePage from "./pages/ProfilePage";
 import SettingsPage from "./pages/SettingsPage";
+// import ReviewPage from "./pages/ReviewPage";
+// import RecommendationPage from "./pages/RecommendationPage";
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
         <Route path="/movie" element={<MoviePage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/settings" element={<SettingsPage />} />
+        {/* <Route path="/reviews" element={<ReviewPage />} /> */}
+        {/* <Route path="/recommendations" element={<RecommendationPage />} /> */}
       </Routes>
     </Router>
   );

@@ -1,7 +1,41 @@
 /* --------------------- */
 /* NAVBAR CSS */
 /* --------------------- */
+.navbar {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1250px;
+  background: #111;
+  border: 1.5px solid #8c8484;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 12px 18px;
+  z-index: 1000;
+}
 
+.nav-icon-btn {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 28px;
+  cursor: pointer;
+  width: 60px;
+  height: 45px;
+  border-radius: 10px;
+}
+
+.nav-icon-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.nav-icon {
+  display: inline-block;
+  line-height: 1;
+}
 
 /* --------------------- */
 /* MOVIECARD CSS */
@@ -125,6 +159,24 @@
 /* HOMEPAGE CSS */
 /* --------------------- */
 
+.homepage-container {
+  height: 98vh;
+  background: #1a1919;
+  border-radius: 10px;
+}
+
+.homepage-container h1 {
+  color: #d9d9d9;
+  font-size: 40px;
+  margin: 20px;
+  
+}
+
+.homepage-container p {
+  color: #d9d9d9;
+  font-size: 18px;
+  margin: 20px;
+}
 
 /* --------------------- */
 /* REGISTER PAGE CSS */

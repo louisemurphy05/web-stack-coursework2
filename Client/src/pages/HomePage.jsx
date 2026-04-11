@@ -1,8 +1,12 @@
+import Navbar from "../components/Navbar";
+import "../index.css";
+
 function HomePage() {
   return (
-    <div>
-      <h1>*TITLE*</h1>
-      <p></p>
+    <div className="homepage-container">
+      <h1>HomePage</h1>
+      <p>Welcome to CineMatch...</p>
+      <Navbar />
     </div>
   );
 }
