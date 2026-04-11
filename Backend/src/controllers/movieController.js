@@ -75,8 +75,8 @@ export const getMovieById = async (req, res) => {
 // Get popular movies
 export const getPopularMovies = async (req, res) => {
   try {
-    const movies = await Movie.find().sort({ popularity: -1 }).limit(20);
-    res.json(movies);
+    const popular = await tmdbService.getPopularMovies();
+    res.json(popular);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -167,11 +167,11 @@ export const syncMovies = async (req, res) => {
       if (!existing) {
         await Movie.create({
           title: movie.title,
-          description: movie.overview,
-          poster: movie.poster_path,
-          backdrop: movie.backdrop_path,
-          releaseDate: movie.release_date,
-          voteAverage: movie.vote_average,
+          overview: movie.overview,
+          poster_path: movie.poster_path,
+          backdrop_path: movie.backdrop_path,
+          release_date: movie.release_date,
+          vote_average: movie.vote_average,
           tmdbId: movie.id.toString(),
           popularity: movie.popularity,
           genres: movie.genre_ids?.map(id => ({ id, name: "" })) || []

@@ -5,26 +5,19 @@ const movieSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  genre: {
+  overview: {
     type: String
   },
-  genres: [{
-    id: Number,
-    name: String
-  }],
-  description: {
+  poster_path: {
     type: String
   },
-  poster: {
+  backdrop_path: {
     type: String
   },
-  backdrop: {
+  release_date: {
     type: String
   },
-  releaseDate: {
-    type: String
-  },
-  voteAverage: {
+  vote_average: {
     type: Number
   },
   tmdbId: {
@@ -33,7 +26,11 @@ const movieSchema = new mongoose.Schema({
   },
   popularity: {
     type: Number
-  }
+  },
+  genres: [{
+    id: Number,
+    name: String
+  }]
 }, { timestamps: true });
 
 export default mongoose.model("Movie", movieSchema);

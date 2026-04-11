@@ -1,20 +1,59 @@
+import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import MovieCard from "../components/MovieCard";
+import { getPopularMovies, getTrendingMovies, searchMovies } from "../api/movieApi";
 import "../index.css";
 
-// filler for now until we sort api key for tmdb
 function HomePage() {
-  const fakeMovies = [
-    { id: 1, title: "example" },
-    { id: 2, title: "example" },
-    { id: 3, title: "example" },
-    { id: 4, title: "example" },
-    { id: 5, title: "example" },
-    { id: 6, title: "example" },
-    { id: 7, title: "example" },
-    { id: 8, title: "example" },
-    { id: 9, title: "example" }
-  ];
+  const [trendingMovies, setTrendingMovies] = useState([]);
+  const [popularMovies, setPopularMovies] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isSearching, setIsSearching] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchMovies();
+  }, []);
+
+  const fetchMovies = async () => {
+    setLoading(true);
+    try {
+      const trending = await getTrendingMovies();
+      const popular = await getPopularMovies();
+      setTrendingMovies(trending.slice(0, 9));
+      setPopularMovies(popular.slice(0, 9));
+    } catch (error) {
+      console.error("Error fetching movies:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSearch = async () => {
+    if (!searchQuery.trim()) {
+      setIsSearching(false);
+      return;
+    }
+    
+    setIsSearching(true);
+    try {
+      const results = await searchMovies(searchQuery);
+      setSearchResults(results.slice(0, 9));
+    } catch (error) {
+      console.error("Search error:", error);
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
+
+  if (loading) {
+    return <div className="loading-screen">Loading movies...</div>;
+  }
 
   return (
     <div className="homepage-container">
@@ -24,16 +63,18 @@ function HomePage() {
           <h1>CineMatch</h1>
         </div>
 
-        <input
-          className="search-bar"
-          type="text"
-          placeholder="Search..."
-        />
-      </div>
+    <input
+        className="search-bar"
+        type="text"
+        placeholder="Search..."
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        onKeyPress={(e) => e.key === "Enter" && handleSearch()}
+      />
+    </div>
 
-{/* will sort out the onClicks for filter options later - all will bring to movies page - to the sepcified option chosen tho */}
       <div className="homepage-filters">
-        <select className="filter-dropdown"  defaultValue="">
+        <select className="filter-dropdown" defaultValue="">
           <option value="" disabled hidden>By Genre</option>
           <option>Action</option>
           <option>Comedy</option>
@@ -56,32 +97,45 @@ function HomePage() {
         </select>
       </div>
 
-
-      <div className="homepage-section">
-        <div className="section-header">
-          <h2>Recommended</h2>
-          <a href="/movies">See more...</a>
+      {isSearching ? (
+        <div className="homepage-section">
+          <div className="section-header">
+            <h2>Search Results for "{searchQuery}"</h2>
+            <a href="#" onClick={() => { setIsSearching(false); setSearchQuery(""); }}>Clear</a>
+          </div>
+          <div className="movie-grid">
+            {searchResults.map((movie) => (
+              <MovieCard key={movie.id} movie={movie} />
+            ))}
+          </div>
         </div>
+      ) : (
+        <>
+          <div className="homepage-section">
+            <div className="section-header">
+              <h2>Trending Now</h2>
+              <a href="/movies">See more...</a>
+            </div>
+            <div className="movie-grid">
+              {trendingMovies.map((movie) => (
+                <MovieCard key={movie.id} movie={movie} />
+              ))}
+            </div>
+          </div>
 
-        <div className="movie-grid">
-          {fakeMovies.slice(0, 9).map((movie) => (
-            <MovieCard key={movie.id} title={movie.title} />
-          ))}
-        </div>
-      </div>
-
-      <div className="homepage-section">
-        <div className="section-header">
-          <h2>New Releases</h2>
-          <a href="/movies">See more...</a>
-        </div>
-
-        <div className="movie-grid">
-          {fakeMovies.slice(0, 9).map((movie) => (
-            <MovieCard key={movie.id} title={movie.title} />
-          ))}
-        </div>
-      </div>
+          <div className="homepage-section">
+            <div className="section-header">
+              <h2>Popular Movies</h2>
+              <a href="/movies">See more...</a>
+            </div>
+            <div className="movie-grid">
+              {popularMovies.map((movie) => (
+                <MovieCard key={movie.id} movie={movie} />
+              ))}
+            </div>
+          </div>
+        </>
+      )}
 
       <Navbar />
     </div>

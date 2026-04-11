@@ -44,23 +44,44 @@
 /* MOVIECARD CSS */
 /* --------------------- */
 .movie-card {
-  width: 130px;
+  width: 150px;
+  cursor: pointer;
+  transition: transform 0.2s;
 }
 
-.movie-poster-placeholder {
-  width: 130px;
-  height: 180px;
-  border: 2px solid #8c8484; 
+.movie-card:hover {
+  transform: scale(1.05);
+}
+
+.movie-poster {
+  width: 150px;
+  height: 225px;
   border-radius: 10px;
-  background: transparent;
-  margin-bottom: 8px;
+  object-fit: cover;
+  border: 2px solid #8c8484;
 }
 
 .movie-card p {
-  margin: 0;
+  margin: 8px 0 0;
   text-align: center;
   font-size: 14px;
   color: #d9d9d9;
+}
+
+.movie-year {
+  font-size: 12px;
+  color: #8c8484;
+}
+
+/* Loading Screen */
+.loading-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #1a1919;
+  color: white;
+  font-size: 24px;
 }
 
 /* --------------------- */

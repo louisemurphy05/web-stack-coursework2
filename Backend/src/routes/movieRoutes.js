@@ -26,6 +26,6 @@ router.get("/:id", getMovieById);
 router.post("/", protect, adminOnly, addMovie);
 router.put("/:id", protect, adminOnly, updateMovie);
 router.delete("/:id", protect, adminOnly, deleteMovie);
-router.post("/sync/tmdb", protect, adminOnly, syncMovies);
+router.post("/sync/tmdb", syncMovies);
 
 export default router;
