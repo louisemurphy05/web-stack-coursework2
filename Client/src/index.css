@@ -6,7 +6,7 @@
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  width: 1250px;
+  width: 1324px;
   background: #111;
   border: 1.5px solid #8c8484;
   border-radius: 12px;
@@ -40,7 +40,25 @@
 /* --------------------- */
 /* MOVIECARD CSS */
 /* --------------------- */
+.movie-card {
+  width: 130px;
+}
 
+.movie-poster-placeholder {
+  width: 130px;
+  height: 180px;
+  border: 2px solid #8c8484; /* THIS is the outline */
+  border-radius: 10px;
+  background: transparent;
+  margin-bottom: 8px;
+}
+
+.movie-card p {
+  margin: 0;
+  text-align: center;
+  font-size: 14px;
+  color: #d9d9d9;
+}
 
 /* --------------------- */
 /* LOGIN PAGE CSS */
@@ -160,22 +178,102 @@
 /* --------------------- */
 
 .homepage-container {
-  height: 98vh;
+  min-height: 100vh;
   background: #1a1919;
   border-radius: 10px;
+  padding: 20px;
+  padding-bottom: 110px;
 }
 
 .homepage-container h1 {
   color: #d9d9d9;
   font-size: 40px;
   margin: 20px;
-  
 }
 
 .homepage-container p {
   color: #d9d9d9;
   font-size: 18px;
   margin: 20px;
+}
+
+.homepage-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.homepage-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: "Bagel Fat One", system-ui;
+}
+
+.homepage-brand h1 {
+  color: #d9d9d9;
+  font-size: 36px;
+  margin: 0;
+}
+
+.search-bar {
+  flex: 1;
+  max-width: 873px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #8c8484;
+  background: #0e0d0d;
+  color: white;
+  outline: none;
+}
+
+.homepage-filters {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+
+.filter-dropdown {
+  flex: 1;
+  min-width: 170px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #8c8484;
+  background: #0e0d0d;
+  color: white;
+  outline: none;
+}
+
+.homepage-section {
+  margin-bottom: 35px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.section-header h2 {
+  color: #d9d9d9;
+  margin: 0;
+  font-size: 20px;
+}
+
+.section-header a {
+  color: #d9d9d9;
+  text-decoration: underline;
+  font-size: 14px;
+}
+
+.movie-grid {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
 }
 
 /* --------------------- */
