@@ -5,7 +5,7 @@ import RegisterPage from "./pages/RegisterPage";
 import MoviePage from "./pages/MoviePage";
 import ProfilePage from "./pages/ProfilePage";
 import SettingsPage from "./pages/SettingsPage";
-// import ReviewPage from "./pages/ReviewPage";
+import ReviewPage from "./pages/ReviewPage";
 // import RecommendationPage from "./pages/RecommendationPage";
 
 function App() {
@@ -16,10 +16,10 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/home" element={<HomePage />} />
-        <Route path="/movie" element={<MoviePage />} />
+        <Route path="/movies" element={<MoviePage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/settings" element={<SettingsPage />} />
-        {/* <Route path="/reviews" element={<ReviewPage />} /> */}
+        <Route path="/reviews" element={<ReviewPage />} />
         {/* <Route path="/recommendations" element={<RecommendationPage />} /> */}
       </Routes>
     </Router>

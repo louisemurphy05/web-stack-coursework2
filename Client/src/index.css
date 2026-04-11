@@ -47,7 +47,7 @@
 .movie-poster-placeholder {
   width: 130px;
   height: 180px;
-  border: 2px solid #8c8484; /* THIS is the outline */
+  border: 2px solid #8c8484; 
   border-radius: 10px;
   background: transparent;
   margin-bottom: 8px;
@@ -176,9 +176,8 @@
 /* --------------------- */
 /* HOMEPAGE CSS */
 /* --------------------- */
-
 .homepage-container {
-  min-height: 100vh;
+  min-height: 85vh;
   background: #1a1919;
   border-radius: 10px;
   padding: 20px;
@@ -356,12 +355,125 @@
 }
 
 /* --------------------- */
+/* REVIEW PAGE CSS */
+/* --------------------- */
+.reviewpage-container {
+  min-height: 78vh;
+  background: #1a1919;
+  padding: 68px 20px 110px;
+  border-radius: 10px;
+  color: white;
+}
+
+.review-card {
+  max-width: 1000px;  
+  margin: 0 auto;
+  border: 1.2px solid #8c8484;   
+  padding: 25px;
+  background: #0e0d0d;
+  border-radius: 15px;           
+}
+
+.review-card h1 {
+  text-align: center;
+  color: #f2f2f2;
+  margin: 0 0 10px;
+  font-size: 40px;              
+  font-weight: 500;
+  font-family: "Bagel Fat One", system-ui;
+}
+
+.review-title-line {
+  height: 2px;
+  background: #d9d9d9;
+  margin: 0 auto 24px;
+  width: 85%;
+}
+
+.review-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.review-form label {
+  color: white;
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+.review-form input {
+  background: transparent;
+  border: 1.5px solid #8c8484;
+  border-radius: 10px;
+  color: white;
+  padding: 10px;
+  margin-bottom: 25px;
+  outline: none;
+  font-size: 16px;
+}
+
+.review-textarea-box {
+  border: 1.5px solid #8c8484;
+  border-radius: 20px;          
+  padding: 18px;
+  margin-bottom: 22px;
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.review-textarea-box textarea {
+  background: transparent;
+  border: none;
+  outline: none;
+  resize: none;
+  color: white;
+  font-size: 16px;
+  min-height: 120px;
+  font-family: inherit;
+}
+
+.review-stars {
+  display: flex;
+  gap: 6px;
+  font-size: 28px;              
+  color: #d9d9d9;
+}
+
+.star {
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.star:hover {
+  transform: scale(1.1);         
+}
+
+.active-star {
+  color: #ffffff;
+}
+
+.submit-review-btn {
+  width: 200px;                 
+  align-self: center;
+  background: #f2f2f2;
+  color: #111;
+  border: none;
+  border-radius: 12px;          
+  font-size: 18px;
+  font-weight: 700;
+  padding: 10px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.submit-review-btn:hover {
+  background: #e0e0e0;
+}
+
+/* --------------------- */
 /* PROFILE PAGE CSS */
-/* --------------------- */
-
-
-/* --------------------- */
-/* SEARCH PAGE CSS */
 /* --------------------- */
 
 
