@@ -4,7 +4,6 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import MoviePage from "./pages/MoviePage";
 import ProfilePage from "./pages/ProfilePage";
-import SettingsPage from "./pages/SettingsPage";
 import ReviewPage from "./pages/ReviewPage";
 // import RecommendationPage from "./pages/RecommendationPage";
 
@@ -18,7 +17,6 @@ function App() {
         <Route path="/home" element={<HomePage />} />
         <Route path="/movies" element={<MoviePage />} />
         <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/settings" element={<SettingsPage />} />
         <Route path="/reviews" element={<ReviewPage />} />
         {/* <Route path="/recommendations" element={<RecommendationPage />} /> */}
       </Routes>
