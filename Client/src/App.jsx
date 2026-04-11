@@ -6,20 +6,19 @@ import SearchPage from "./pages/SearchPage";
 import MoviePage from "./pages/MoviePage";
 import ProfilePage from "./pages/ProfilePage";
 import SettingsPage from "./pages/SettingsPage";
-// import RecommendationsPage from "./pages/RecommendationsPage";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<LoginPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/home" element={<HomePage />} />
         <Route path="/search" element={<SearchPage />} />
-        <Route path="/movie/:id" element={<MoviePage />} />
+        <Route path="/movie" element={<MoviePage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/settings" element={<SettingsPage />} />
-        {/* <Route path="/recommendations" element={<RecommendationsPage />} /> might not need */}
       </Routes>
     </Router>
   );
