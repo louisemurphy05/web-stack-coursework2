@@ -12,12 +12,17 @@ const generateToken = (id, isAdmin) => {
 
 // Register new user
 export const register = async (req, res) => {
+  console.log("REGISTER endpoint called");
+  console.log("Request body:", req.body);
+  
   try {
     const { username, email, password } = req.body;
+    console.log("Creating user:", username, email);
 
     // Check if user already exists
     const userExists = await User.findOne({ $or: [{ email }, { username }] });
     if (userExists) {
+      console.log("User already exists");
       return res.status(400).json({ 
         message: "User already exists with this email or username" 
       });
@@ -28,6 +33,8 @@ export const register = async (req, res) => {
       email,
       password
     });
+    
+    console.log("User created successfully, ID:", user._id);
 
     res.status(201).json({
       _id: user._id,
@@ -37,25 +44,34 @@ export const register = async (req, res) => {
       token: generateToken(user._id, user.isAdmin)
     });
   } catch (error) {
+    console.log("ERROR in register:", error.message);
     res.status(500).json({ message: error.message });
   }
 };
 
 // Login user
 export const login = async (req, res) => {
+  console.log("LOGIN endpoint called");
+  console.log("Request body:", req.body);
+  
   try {
     const { email, password } = req.body;
+    console.log("Login attempt for:", email);
 
     const user = await User.findOne({ email });
     if (!user) {
+      console.log("User not found:", email);
       return res.status(401).json({ message: "Invalid email or password" });
     }
 
     const isPasswordValid = await user.comparePassword(password);
     if (!isPasswordValid) {
+      console.log("Invalid password for:", email);
       return res.status(401).json({ message: "Invalid email or password" });
     }
 
+    console.log("Login successful for:", email);
+    
     res.json({
       _id: user._id,
       username: user.username,
@@ -64,6 +80,7 @@ export const login = async (req, res) => {
       token: generateToken(user._id, user.isAdmin)
     });
   } catch (error) {
+    console.log("ERROR in login:", error.message);
     res.status(500).json({ message: error.message });
   }
 };

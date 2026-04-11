@@ -3,20 +3,23 @@ import { loginUser } from "../api/authApi";
 import "../index.css";
 
 function LoginPage() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-  // commented out for now, might not use this
-  // const handleLogin = async () => {
-  //   try {
-  //     const data = await loginUser({ username, password });
-  //     console.log("LOGIN SUCCESS:", data);
-  //     localStorage.setItem("token", data.token);
-  //     window.location.href = "/home";
-  //   } catch (error) {
-  //     console.log("LOGIN ERROR:", error.response?.data || error.message);
-  //   }
-  // };
+  const handleLogin = async () => {
+    setError("");
+    try {
+      const data = await loginUser({ email, password });
+      console.log("LOGIN SUCCESS:", data);
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data));
+      window.location.href = "/home";
+    } catch (error) {
+      console.log("LOGIN ERROR:", error.response?.data || error.message);
+      setError(error.response?.data?.message || "Login failed");
+    }
+  };
 
   return (
     <div className="login-container">
@@ -28,11 +31,19 @@ function LoginPage() {
         </div>
 
         <div className="login-form">
+          {error && (
+            <div className="error-box">
+              <span className="error-icon">⚠️</span>
+              <span className="error-text">{error}</span>
+            </div>
+          )}
+          
           <label>Email Address</label>
           <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            onKeyPress={(e) => e.key === "Enter" && handleLogin()}
           />
 
           <label>Password</label>
@@ -40,22 +51,19 @@ function LoginPage() {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            onKeyPress={(e) => e.key === "Enter" && handleLogin()}
           />
 
           <a href="#" className="forgot">Forgot Password?</a>
 
           <div className="login-buttons">
+            <button className="login-btn" onClick={handleLogin}>
+              Login
+            </button>
 
-              <button
-                className="login-btn" 
-                // onClick={handleLogin}>Login
-                onClick={() => (window.location.href = "/home")}>Login
-              </button>
-
-              <button
-                className="register-btn"
-                onClick={() => (window.location.href = "/register")}>Register
-              </button>
+            <button className="register-btn" onClick={() => (window.location.href = "/register")}>
+              Register
+            </button>
           </div>
         </div>
       </div>

@@ -6,7 +6,7 @@ const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p";
 class TMDBService {
   constructor() {
 
-    this.apiKey = "YOUR_API_KEY_HERE"; 
+    this.apiKey = "b4cb39013383f0f6a6c23e0c3e053b56"; 
   }
 
   /**
