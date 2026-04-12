@@ -5,6 +5,7 @@ html, body, #root {
   margin: 0;
   padding: 0;
 }
+
 .login-container {
   width: calc(100% - 20px);
   min-height: calc(100vh - 20px);
@@ -171,6 +172,45 @@ html, body, #root {
 .nav-icon {
   display: inline-block;
   line-height: 1;
+}
+
+.admin-profile-menu-wrap {
+  position: relative;
+}
+
+.admin-profile-menu {
+  position: absolute;
+  bottom: 60px;
+  right: 0;
+  width: 200px;
+  background: #0e0d0d;
+  border-radius: 12px;
+  padding: 14px 18px;
+  box-shadow:
+    0 10px 25px rgba(0, 0, 0, 0.6),
+    0 0 15px rgba(0, 0, 0, 0.4);
+  outline: #1e1d1d solid 1px;
+  z-index: 2000;
+}
+
+.admin-profile-menu p {
+  margin: 0;
+  padding: 10px 6px;
+  font-size: 16px;
+  color: #f2f2f2;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.admin-profile-menu p:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.admin-profile-menu .delete-account-text {
+  margin-top: 10px;
+  font-weight: bold;
+  color: #ff4d4d;
 }
 
 /* ------------------------ */
