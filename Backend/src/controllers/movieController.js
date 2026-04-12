@@ -204,30 +204,27 @@ export const getMoviesByGenre = async (req, res) => {
 export const getRandomMovies = async (req, res) => {
   try {
     const limit = parseInt(req.query.limit) || 16;
+    let allMovies = [];
     
-    // Get random movies from database
-    const movies = await Movie.aggregate([
-      { $sample: { size: limit } }
-    ]);
+    // Mix from different endpoints for variety
+    const endpoints = [
+      () => tmdbService.getPopularMovies(Math.floor(Math.random() * 100) + 1),
+      () => tmdbService.getTopRatedMovies(Math.floor(Math.random() * 50) + 1),
+    ];
     
-    // Get average ratings for each movie
-    const moviesWithRatings = await Promise.all(
-      movies.map(async (movie) => {
-        const reviews = await Review.find({ movieId: movie.tmdbId });
-        const avgRating = reviews.length > 0
-          ? reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length
-          : 0;
-        return {
-          ...movie.toObject(),
-          averageRating: avgRating,
-          reviewCount: reviews.length,
-          poster_path: movie.poster_path || null
-        };
-      })
-    );
+    // Randomly select from different endpoints
+    for (let i = 0; i < Math.ceil(limit / 10); i++) {
+      const randomEndpoint = endpoints[Math.floor(Math.random() * endpoints.length)];
+      const movies = await randomEndpoint();
+      allMovies = [...allMovies, ...movies];
+    }
     
-    res.json(moviesWithRatings);
+    const shuffledMovies = allMovies.sort(() => 0.5 - Math.random());
+    const randomMovies = shuffledMovies.slice(0, limit);
+    
+    res.json(randomMovies);
   } catch (error) {
+    console.error("Error in getRandomMovies:", error);
     res.status(500).json({ message: error.message });
   }
 };
