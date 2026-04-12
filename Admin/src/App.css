@@ -363,66 +363,281 @@ html, body, #root {
 .bar-4 {
   background: #7613a1;
 }
-/* .modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0,0,0,0.5);
+
+/* ------------------------ */
+/* MOVIES PAGE CSS */
+/* ------------------------ */
+.admin-movies-container {
+  max-width: 1400px;
+  min-height: calc(103vh - 40px);
+  margin: 10px auto;
+  background: #1a1919;
+  border-radius: 15px;
+  padding: 30px 47px 90px;
+  color: white;
+}
+
+.admin-movies-section {
+  background: #0e0d0d;
+  border-radius: 15px;
+  padding: 20px;
+  outline: 1px solid #2a2a2a;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.admin-movies-toolbar {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  z-index: 1000;
+  margin-bottom: 18px;
+  gap: 16px;
+  flex-wrap: wrap;
 }
 
-.modal {
-  background: white;
-  border-radius: 10px;
-  padding: 2rem;
-  width: 90%;
-  max-width: 500px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-}
-
-.modal h3 {
-  margin-bottom: 1rem;
-  color: #333;
-}
-
-.modal-form {
-  margin-bottom: 1.5rem;
-}
-
-.modal-buttons {
+.admin-toolbar-right {
   display: flex;
-  justify-content: flex-end;
-  gap: 1rem;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
-.cancel-btn {
-  background: #6c757d;
+.admin-add-movie-btn {
+  background: #704189;
   color: white;
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
+  border-radius: 12px;
+  padding: 12px 22px;
+  font-size: 20px;
+  font-weight: 500;
   cursor: pointer;
+  outline: 1px solid #333131;
 }
 
-.confirm-btn {
-  background: #28a745;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  cursor: pointer;
+.admin-add-movie-btn:hover {
+  filter: brightness(1.05);
 }
 
-.confirm-remove-btn {
-  background: #dc3545;
+.search-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.search-bar {
+  width: 300px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #8c8484;
+  background: #0e0d0d;
   color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
+  outline: none;
+}
+
+.search-icon-btn {
+  background: transparent;
+  border: 1px solid #8c8484;
+  border-radius: 10px;
+  padding: 8px 12px;
   cursor: pointer;
-} */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-icon-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.admin-add-panel {
+  margin-bottom: 22px;
+  background: #111;
+  border-radius: 15px;
+  padding: 20px;
+  outline: 1px solid #2a2a2a;
+  box-shadow:
+    0 10px 25px rgba(0, 0, 0, 0.6),
+    0 0 15px rgba(0, 0, 0, 0.4);
+}
+
+.admin-add-panel h3 {
+  margin: 0 0 18px;
+  color: #d9d9d9;
+  font-size: 24px;
+}
+
+.admin-add-form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  color: #d9d9d9;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #8c8484;
+  background: #0e0d0d;
+  color: white;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.admin-add-panel-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.cancel-btn,
+.confirm-btn,
+.sync-btn {
+  border: none;
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-size: 15px;
+  cursor: pointer;
+  outline: 1px solid #2a2a2a;
+}
+
+.cancel-btn, 
+.admin-delete-btn {
+  background: #ad2727;
+  color: white;
+}
+
+.confirm-btn, 
+.sync-btn,
+.admin-edit-btn {
+  background: #704189;
+  color: white;
+}
+
+.admin-movies-table-wrap {
+  overflow-x: auto;
+}
+
+.admin-movies-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: transparent;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.admin-movies-table th,
+.admin-movies-table td {
+  border: 1px solid #8c8484;
+  padding: 14px 12px;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.admin-movies-table th {
+  color: #f2f2f2;
+  font-size: 18px;
+  font-weight: 700;
+  background: #111;
+}
+
+.admin-movies-table thead tr:first-child th:first-child {
+  border-top-left-radius: 14px;
+}
+
+.admin-movies-table thead tr:first-child th:last-child {
+  border-top-right-radius: 14px;
+}
+
+.admin-movies-table tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 14px;
+}
+
+.admin-movies-table tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 14px;
+}
+
+.admin-movies-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.poster-cell {
+  width: 230px;
+}
+
+.title-year-cell {
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.action-cell {
+  width: 240px;
+}
+
+.admin-movie-poster {
+  width: 130px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+  margin: 0 auto;
+  box-shadow:
+    0 10px 25px rgba(0, 0, 0, 0.6),
+    0 0 15px rgba(0, 0, 0, 0.4);
+  outline: #494545 solid 1.5px;
+}
+
+.admin-movie-title {
+  color: #f2f2f2;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.admin-movie-year {
+  color: #f2f2f2;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.admin-edit-btn,
+.admin-delete-btn {
+  width: 175px;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 0;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+  margin: 8px 0;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  outline: 1px solid #2a2a2a;
+}
+
+.admin-empty-state {
+  padding: 30px;
+  color: #d9d9d9;
+  font-size: 16px;
+}
+
+/* ---------------------------- */
+/* USER PAGE CSS */
+/* ---------------------------- */
+
+
+
+/* ---------------------------- */
+/* REVIEWS PAGE CSS */
+/* ---------------------------- */
