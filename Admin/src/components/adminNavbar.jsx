@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+// Admin navigation bar component with profile menu and logout functionality - same as client but with no add button
 function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
 
@@ -8,7 +9,7 @@ function Navbar() {
       <button
         className="nav-icon-btn"
         onClick={() => (window.location.href = "/dashboard")}
->
+      >
         <span className="nav-icon">⌂</span>
       </button>
 
@@ -34,6 +35,7 @@ function Navbar() {
           </span>
         </button>
 
+{/* Profile menu with sign out and delete account options */}
         {showMenu && (
           <div className="admin-profile-menu">
             <p

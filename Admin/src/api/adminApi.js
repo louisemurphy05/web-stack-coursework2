@@ -3,6 +3,7 @@ import { getAuthToken } from "./authApi";
 
 const API_URL = "http://localhost:5000/api/admin";
 
+// Automatically attach auth token to every request if available
 axios.interceptors.request.use((config) => {
   const token = getAuthToken();
   if (token) {
@@ -37,6 +38,7 @@ export const deleteUser = async (userId) => {
   }
 };
 
+// Updates a user's details by ID
 export const updateUser = async (userId, userData) => {
   const response = await axios.put(`${API_URL}/users/${userId}`, userData);
   return response.data;
@@ -72,6 +74,7 @@ export const updateMovie = async (movieId, movieData) => {
   return response.data;
 };
 
+// Triggers backend sync with TMDB API
 export const syncMoviesFromTMDB = async () => {
   const response = await axios.post(`http://localhost:5000/api/movies/sync/tmdb`);
   return response.data;

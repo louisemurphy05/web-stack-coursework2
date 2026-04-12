@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { adminLogin } from "../api/authApi";
 import "../App.css";
 
+// Admin login page component with form and error handling
 const AdminLoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -40,6 +41,7 @@ const AdminLoginPage = () => {
     }
   };
 
+// Renders login form with email/password fields, error messages, and login button
   return (
     <div className="login-container">
       <div className="login-card">

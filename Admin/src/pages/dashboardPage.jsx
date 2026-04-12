@@ -13,7 +13,8 @@ const DashboardPage = () => {
     { label: "Reviews", value: 80, className: "bar-3" },
     { label: "Activity", value: 150, className: "bar-4" }
   ];
-
+  
+// Renders admin dashboard with navigation links and performance chart
   return (
     <div className="admin-dashboard-container">
       <div className="admin-top">

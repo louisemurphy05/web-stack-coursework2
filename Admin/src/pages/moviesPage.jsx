@@ -36,6 +36,7 @@ const MoviesPage = () => {
     }
   ];
 
+  
   const filteredMovies = placeholderMovies.filter((movie) =>
     movie.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -88,6 +89,7 @@ const MoviesPage = () => {
           </div>
         </div>
 
+{/* Add movie dropdown thing - will not become functional, just UI */}
         {showAddPanel && (
           <div className="admin-add-panel">
             <h3>Add New Movie</h3>
@@ -127,6 +129,7 @@ const MoviesPage = () => {
               </div>
             </div>
 
+{/* Buttons to cancel, confirm adding movie, or sync from TMDB - will not become functional, just UI */}
             <div className="admin-add-panel-buttons">
               <button
                 onClick={() => setShowAddPanel(false)}
@@ -146,6 +149,7 @@ const MoviesPage = () => {
           </div>
         )}
 
+{/* Movie table with poster, title/year, and action buttons - will not become functional, just UI with hardcoded movies */}
         <div className="admin-movies-table-wrap">
           <table className="admin-movies-table">
             <thead>

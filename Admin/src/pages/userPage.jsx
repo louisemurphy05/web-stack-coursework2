@@ -14,6 +14,7 @@ const UsersPage = () => {
     fetchUsers();
   }, []);
 
+// Fetches all users from backend (mongodb) and handles loading/error states
   const fetchUsers = async () => {
     try {
       const data = await getAllUsers();
@@ -26,6 +27,7 @@ const UsersPage = () => {
     }
   };
 
+// Handles user deletion with confirmation popup, calls delete API and refreshes users list on success
   const handleDelete = async (userId) => {
     try {
       await deleteUser(userId);
@@ -89,6 +91,7 @@ const UsersPage = () => {
 
         {error && <div style={{ color: "red", padding: "10px", textAlign: "center" }}>{error}</div>}
 
+{/* Users table with delete button (disabled for admins) and search functionality - calls delete API and refreshes list on delete, with confirmation popup */}
         <div className="admin-users-table-wrap">
           <table className="admin-users-table">
             <thead>

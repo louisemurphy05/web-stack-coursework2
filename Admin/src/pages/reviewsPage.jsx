@@ -14,6 +14,7 @@ const ReviewsPage = () => {
     fetchReviews();
   }, []);
 
+// Fetches all reviews from backend (mongodb)and handles loading/error states
   const fetchReviews = async () => {
     try {
       setLoading(true);
@@ -29,6 +30,7 @@ const ReviewsPage = () => {
     }
   };
 
+// Handles review deletion with confirmation popup, calls delete API and refreshes reviews list on success
   const handleDelete = async (reviewId) => {
     try {
       await deleteReview(reviewId);
@@ -45,6 +47,7 @@ const ReviewsPage = () => {
     review.userId?.username?.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+// Renders admin reviews management page with search, reviews table, and delete confirmation popup
   return (
     <div className="admin-reviews-container">
       <div className="admin-top">
@@ -91,6 +94,7 @@ const ReviewsPage = () => {
           </div>
         )}
 
+{/* Loading state, reviews table, and delete confirmation popup - same style as Users page */}
         {loading ? (
           <div className="loading-state" style={{ textAlign: "center", padding: "40px", color: "#d9d9d9" }}>
             Loading reviews...
@@ -185,6 +189,7 @@ const ReviewsPage = () => {
                 Cancel
               </button>
               <button 
+              // Calls delete API and refreshes reviews list on confirm
                 onClick={() => handleDelete(showConfirm._id)}
                 style={{
                   padding: "10px 20px",

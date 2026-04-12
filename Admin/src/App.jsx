@@ -7,6 +7,7 @@ import MoviesPage from "./pages/moviesPage";
 import ReviewsPage from "./pages/reviewsPage";
 import "./App.css";
 
+// Main App component that sets up routing for admin pages: login, dashboard, users, movies, and reviews
 function App() {
   return (
     <Router>
