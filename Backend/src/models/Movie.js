@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+// Movie schema defining the structure of movie documents in MongoDB, including fields like title, overview, 
+// poster/backdrop paths, release date, rating, TMDB ID, popularity, and genres
 const movieSchema = new mongoose.Schema({
   title: {
     type: String,
