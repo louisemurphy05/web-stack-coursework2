@@ -7,7 +7,8 @@ const MoviesPage = () => {
   const [showAddPanel, setShowAddPanel] = useState(false);
   const [newMovie, setNewMovie] = useState({ title: "", year: "", tmdbId: "" });
 
-// Placeholder movies - will we bother with actual API calls for this?
+// Placeholder movies - will not be making this functional - no time to do all mongodb integration and TMDB API integration for this page, so just hardcoding some movies to show the UI - will not become dynamic or connected to backend
+// whole page not functional except search feature - everythin else is just UI with hardocoded data
   const placeholderMovies = [
     {
       id: 1,

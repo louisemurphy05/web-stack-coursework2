@@ -6,6 +6,7 @@ import "../App.css";
 const DashboardPage = () => {
   const navigate = useNavigate();
 
+// also placeholders, set to random values for now to show the chart - will not become dynamic 
   const performanceData = [
     { label: "Users", value: 90, className: "bar-1" },
     { label: "Movies", value: 120, className: "bar-2" },

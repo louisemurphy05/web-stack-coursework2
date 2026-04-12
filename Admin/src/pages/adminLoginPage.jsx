@@ -13,7 +13,7 @@ const AdminLoginPage = () => {
   const handleLogin = async () => {
     setError("");
 
-    // TEMPORARY TEST LOGIN
+    // admin login bypass - didn't implement admin user creation so have to use this
     if (email === "admin" && password === "admin") {
       localStorage.setItem("adminToken", "test-token");
       localStorage.setItem(

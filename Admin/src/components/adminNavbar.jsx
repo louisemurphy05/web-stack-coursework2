@@ -8,7 +8,7 @@ function Navbar() {
       <button
         className="nav-icon-btn"
         onClick={() => (window.location.href = "/dashboard")}
-      >
+>
         <span className="nav-icon">⌂</span>
       </button>
 
