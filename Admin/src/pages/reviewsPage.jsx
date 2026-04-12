@@ -1,84 +1,94 @@
-import React, { useState, useEffect } from "react";
-import { getAllReviews, deleteReview } from "../api/adminApi";
+import React, { useState } from "react";
+import AdminNavbar from "../components/adminNavbar";
+import "../App.css";
 
 const ReviewsPage = () => {
-  const [reviews, setReviews] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [search, setSearch] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
-  useEffect(() => {
-    fetchReviews();
-  }, []);
+  const placeholderReviews = [
+    { id: 1, review: '"i thought this film was..."', username: "j.d@gmail.com" },
+    { id: 2, review: '"alright"', username: "a.s@gmail.com" },
+    { id: 3, review: '"i thought this film was..."', username: "thankunext@gmail.com" }
+  ];
 
-  const fetchReviews = async () => {
-    try {
-      const data = await getAllReviews();
-      setReviews(data);
-    } catch (error) {
-      console.error("Failed to fetch reviews:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleDelete = async (reviewId) => {
-    if (window.confirm("Are you sure you want to delete this review?")) {
-      try {
-        await deleteReview(reviewId);
-        fetchReviews();
-      } catch (error) {
-        console.error("Failed to delete review:", error);
-      }
-    }
-  };
-
-  const filteredReviews = reviews.filter(review =>
-    review.userId?.username?.toLowerCase().includes(search.toLowerCase()) ||
-    review.comment?.toLowerCase().includes(search.toLowerCase())
+  const filteredReviews = placeholderReviews.filter((item) =>
+    item.review.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    item.username.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  if (loading) return <div className="loading">Loading reviews...</div>;
-
   return (
-    <div className="page-container">
-      <div className="page-header">
-        <h1>Manage Reviews</h1>
-        <input
-          type="text"
-          placeholder="Search by user or comment..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="search-input"
-        />
+    <div className="admin-reviews-container">
+      <div className="admin-top">
+        <div className="admin-brand">
+          <span className="logo-icon">🎬</span>
+          <h1>CineMatch</h1>
+        </div>
       </div>
 
-      <div className="table-container">
-        <table>
-          <thead>
-            <tr>
-              <th>Review</th>
-              <th>Username</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredReviews.map(review => (
-              <tr key={review._id}>
-                <td>
-                  <div className="review-rating">{"⭐".repeat(review.rating)}</div>
-                  <div className="review-comment">{review.comment?.substring(0, 100)}</div>
-                </td>
-                <td>{review.userId?.username || "Unknown"}</td>
-                <td>
-                  <button onClick={() => handleDelete(review._id)} className="delete-btn">
-                    Delete
-                  </button>
-                </td>
+      <div className="admin-reviews-section">
+        <div className="admin-section-header admin-reviews-header">
+          <h2>Manage Reviews</h2>
+
+          <div className="search-wrapper admin-reviews-search">
+            <input
+              className="search-bar"
+              type="text"
+              placeholder="Search reviews..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <button className="search-icon-btn">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="white"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div className="admin-reviews-table-wrap">
+          <table className="admin-reviews-table">
+            <thead>
+              <tr>
+                <th>Review</th>
+                <th>Username</th>
+                <th>Delete</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+
+            <tbody>
+              {filteredReviews.length > 0 ? (
+                filteredReviews.map((item) => (
+                  <tr key={item.id}>
+                    <td className="admin-review-text-cell">{item.review}</td>
+                    <td className="admin-review-user-cell">{item.username}</td>
+                    <td className="admin-review-action-cell">
+                      <button className="admin-delete-btn">Delete</button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="3" className="admin-empty-state">
+                    No reviews found
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
+
+      <AdminNavbar />
     </div>
   );
 };
