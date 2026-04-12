@@ -106,6 +106,21 @@ export const getAllReviews = async (req, res) => {
   }
 };
 
+// Delete review (Admin)
+export const deleteReview = async (req, res) => {
+  try {
+    const review = await Review.findById(req.params.id);
+    if (!review) {
+      return res.status(404).json({ message: "Review not found" });
+    }
+    
+    await review.deleteOne();
+    res.json({ message: "Review deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 // Get dashboard stats
 export const getDashboardStats = async (req, res) => {
   try {
