@@ -200,3 +200,34 @@ export const getMoviesByGenre = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+export const getRandomMovies = async (req, res) => {
+  try {
+    const limit = parseInt(req.query.limit) || 16;
+    
+    // Get random movies from database
+    const movies = await Movie.aggregate([
+      { $sample: { size: limit } }
+    ]);
+    
+    // Get average ratings for each movie
+    const moviesWithRatings = await Promise.all(
+      movies.map(async (movie) => {
+        const reviews = await Review.find({ movieId: movie.tmdbId });
+        const avgRating = reviews.length > 0
+          ? reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length
+          : 0;
+        return {
+          ...movie.toObject(),
+          averageRating: avgRating,
+          reviewCount: reviews.length,
+          poster_path: movie.poster_path || null
+        };
+      })
+    );
+    
+    res.json(moviesWithRatings);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

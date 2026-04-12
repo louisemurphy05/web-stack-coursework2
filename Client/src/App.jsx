@@ -4,7 +4,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import ProfilePage from "./pages/ProfilePage";
 import ReviewPage from "./pages/ReviewPage";
-// import RecommendationPage from "./pages/RecommendationPage";
+import RecommendationsPage from "./pages/RecommendationsPage";
 
 function App() {
   return (
@@ -16,7 +16,7 @@ function App() {
         <Route path="/home" element={<HomePage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/reviews" element={<ReviewPage />} />
-        {/* <Route path="/recommendations" element={<RecommendationPage />} /> */}
+        <Route path="/recommendations" element={<RecommendationsPage />} /> 
       </Routes>
     </Router>
   );

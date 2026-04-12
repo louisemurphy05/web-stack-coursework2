@@ -2,12 +2,14 @@ import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import MovieCard from "../components/MovieCard";
 import "../index.css";
+import { useNavigate } from "react-router-dom";
 
 function ProfilePage() {
   const [showSettings, setShowSettings] = useState(false);
   const [watchHistory, setWatchHistory] = useState([]);
   const [userReviews, setUserReviews] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchUserData();
@@ -77,13 +79,17 @@ function ProfilePage() {
       </div>
 
       <div className="recommend-btn-wrap">
-        <button className="recommend-btn">Recommend me a film</button>
+        <button 
+          className="recommend-btn" 
+          onClick={() => navigate("/recommendations")}
+        >
+          Recommend me a film
+        </button>
       </div>
 
       <div className="profile-section">
         <div className="section-header">
           <h2>Recent Watches</h2>
-          <a href="/home">See more...</a>
         </div>
         <div className="watches-box">
           <div className="movie-grid">
@@ -101,7 +107,6 @@ function ProfilePage() {
       <div className="profile-section">
         <div className="section-header">
           <h2>Recent Reviews</h2>
-          <a href="/reviews">See more...</a>
         </div>
         <div className="recent-reviews-row">
           {userReviews.length > 0 ? (

@@ -24,6 +24,7 @@ router.get("/popular", getPopularMovies);
 router.get("/trending", getTrendingMovies);
 router.get("/search", searchMovies);
 router.get("/genre/:genreId", getMoviesByGenre); 
+router.get("/random", getRandomMovies);
 router.get("/:id", getMovieById);                  
 
 router.post("/", protect, adminOnly, addMovie);

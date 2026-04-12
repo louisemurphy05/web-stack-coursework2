@@ -1,3 +1,25 @@
+
+/* Global Font Settings */
+* {
+  font-family: 'Calibri', 'Segoe UI', 'Arial', sans-serif;
+}
+
+/* Keep Bagel Fat One for specific elements */
+.login-header,
+.login-header *,
+.register-header,
+.register-header *,
+.homepage-brand,
+.homepage-brand *,
+.profile-brand,
+.profile-brand *,
+.recommendations-brand,
+.recommendations-brand *,
+.review-card h1,
+.bagel-font {
+  font-family: "Bagel Fat One", system-ui, cursive !important;
+}
+
 /* --------------------- */
 /* NAVBAR CSS */
 /* --------------------- */
@@ -863,4 +885,140 @@
     0 10px 25px rgba(0, 0, 0, 0.6),
     0 0 15px rgba(0, 0, 0, 0.4);
   outline: #1e1d1d solid 1px;
+}
+
+/* --------------------- */
+/* RECOMMENDATIONS PAGE CSS */
+/* --------------------- */
+
+.recommendations-container {
+  min-height: 85vh;
+  background: #1a1919;
+  border-radius: 10px;
+  padding: 20px;
+  padding-bottom: 110px;
+  color: white;
+}
+
+.recommendations-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  padding: 0 20px;
+}
+
+.recommendations-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: "Bagel Fat One", system-ui;
+}
+
+.recommendations-brand h1 {
+  color: #d9d9d9;
+  font-size: 36px;
+  margin: 0;
+}
+
+.randomize-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.randomize-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.randomize-btn:active {
+  transform: translateY(0);
+}
+
+.recommendations-section {
+  background: #0e0d0d;
+  border-radius: 15px;
+  padding: 30px;
+  outline: 1px solid #2a2a2a;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.recommendations-section .section-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.recommendations-section .section-header h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+  color: #d9d9d9;
+}
+
+.recommendations-section .section-header p {
+  color: #8c8484;
+  font-size: 16px;
+  margin: 0;
+}
+
+.recommendations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 24px;
+  justify-items: center;
+  align-items: start;
+}
+
+.error-message {
+  background: rgba(255, 68, 68, 0.1);
+  border: 1px solid #ff4444;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  margin: 20px;
+}
+
+.error-message p {
+  color: #ff4444;
+  margin-bottom: 15px;
+}
+
+.error-message button {
+  background: #ff4444;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.no-movies-message {
+  text-align: center;
+  padding: 60px 20px;
+  color: #8c8484;
+}
+
+.no-movies-message p {
+  font-size: 18px;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .recommendations-header {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+  
+  .recommendations-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 16px;
+  }
 }

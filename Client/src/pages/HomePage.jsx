@@ -238,7 +238,6 @@ function HomePage() {
           <div className="homepage-section">
             <div className="section-header">
               <h2>Trending Now</h2>
-              <a href="/movies">See more...</a>
             </div>
             <Swiper
               modules={[]}
@@ -270,7 +269,6 @@ function HomePage() {
           <div className="homepage-section">
             <div className="section-header">
               <h2>Popular Movies</h2>
-              <a href="/movies">See more...</a>
             </div>
             <Swiper
               modules={[]}

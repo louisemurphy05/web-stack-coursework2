@@ -29,3 +29,8 @@ export const getMoviesByGenre = async (genreId, page = 1) => {
   const response = await axios.get(`${API_URL}/genre/${genreId}?page=${page}`);
   return response.data;
 };
+
+export const getRandomMovies = async (limit = 16) => {
+  const response = await axios.get(`${API_URL}/random?limit=${limit}`);
+  return response.data;
+};
