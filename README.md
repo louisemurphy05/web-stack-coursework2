@@ -10,13 +10,13 @@ This is a full-stack web application that helps users discover movies based on t
 - Browse popular and latest movies
 - Search for movies
 - Rate and review movies
-- Receive personalised recommendations
+- remove reviews/movies from profile
+- Receive recommendations
 
 ----------------------------------
 
 ## Features (admin)
 - remove users
-- add and remove movies
 - review dashboard
 - review and remove reviews
 
@@ -36,5 +36,25 @@ movie-recommendation-app/
 - backend/
 - client/
 - admin/
+
+----------------------------------
+
+## Instructions
+Connecting to our MongoDB instructions:
+- 
+- 
+
+Runnning the webapp instructions:
+- 
+-
+
+In-app instructions:
+
+In order to enter admin application, a preset username and password has been implemented
+- username = admin
+- password = admin
+
+In order to enter user application, you will need to register an account on register page then re-enter the 
+email and password on the login page
 
 ----------------------------------

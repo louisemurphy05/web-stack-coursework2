@@ -24,23 +24,54 @@ function ProfilePage() {
 
     try {
       const reviewsRes = await fetch("http://localhost:5000/api/reviews/my-reviews", {
-        headers: { "Authorization": `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${token}` }
       });
       const reviews = await reviewsRes.json();
       setUserReviews(reviews);
 
+      const uniqueMovieIds = [...new Set(reviews.map((review) => review.movieId))];
+
       const movies = await Promise.all(
-        reviews.map(async (review) => {
-          const movieRes = await fetch(`http://localhost:5000/api/movies/${review.movieId}`);
+        uniqueMovieIds.map(async (movieId) => {
+          const movieRes = await fetch(`http://localhost:5000/api/movies/${movieId}`);
           const movie = await movieRes.json();
           return movie;
         })
       );
+
       setWatchHistory(movies);
     } catch (error) {
       console.error("Error fetching user data:", error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleDeleteReview = async (reviewId) => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+
+    const confirmDelete = window.confirm("Are you sure you want to delete this review?");
+    if (!confirmDelete) return;
+
+    try {
+      const response = await fetch(`http://localhost:5000/api/reviews/${reviewId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        alert(errorData.message || "Failed to delete review");
+        return;
+      }
+
+      await fetchUserData();
+    } catch (error) {
+      console.error("Error deleting review:", error);
+      alert("Failed to delete review");
     }
   };
 
@@ -110,14 +141,24 @@ function ProfilePage() {
         </div>
         <div className="recent-reviews-row">
           {userReviews.length > 0 ? (
-            userReviews.slice(0, 2).map((review) => (
-              <div key={review._id} className="recent-reviews-box">
-                <p><strong>Movie: {watchHistory.find(m => m.tmdbId === review.movieId)?.title || "Loading..."}</strong></p>
-                <p><strong>Year: {watchHistory.find(m => m.tmdbId === review.movieId)?.release_date?.substring(0, 4) || "N/A"}</strong></p>
-                <p><strong>Rating: {review.rating}/5</strong></p>
-                <p>{review.comment?.substring(0, 100)}</p>
-              </div>
-            ))
+            userReviews.slice(0, 2).map((review) => {
+              const matchingMovie = watchHistory.find(
+                (m) => m.tmdbId === review.movieId
+              );
+
+              return (
+                <div key={review._id} className="recent-reviews-box">
+                  <button
+                    className="delete-review-btn"
+                    onClick={() => handleDeleteReview(review._id)}>Delete Review
+                  </button>
+                  <p><strong> Movie: '{matchingMovie?.title || "Loading..."}'</strong></p>
+                  <p><strong>Year: {matchingMovie?.release_date?.substring(0, 4) || "N/A"}</strong></p>
+                  <p><strong>Rating: {review.rating}/5</strong></p>
+                  <p className="client-review">"{review.comment?.substring(0, 100)}"</p>
+                </div>
+              );
+            })
           ) : (
             <p className="empty-message">No reviews yet. Write your first review!</p>
           )}
