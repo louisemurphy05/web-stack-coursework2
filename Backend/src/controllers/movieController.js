@@ -189,3 +189,14 @@ export const syncMovies = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+export const getMoviesByGenre = async (req, res) => {
+  try {
+    const { genreId } = req.params;
+    const page = parseInt(req.query.page) || 1;
+    const movies = await tmdbService.getMoviesByGenre(genreId, page);
+    res.json(movies);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

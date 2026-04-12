@@ -1,22 +1,50 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import MovieCard from "../components/MovieCard";
 import "../index.css";
 
 function ProfilePage() {
   const [showSettings, setShowSettings] = useState(false);
+  const [watchHistory, setWatchHistory] = useState([]);
+  const [userReviews, setUserReviews] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const recentWatches = [
-    { id: 1, title: "Movie Title" },
-    { id: 2, title: "Movie Title" },
-    { id: 3, title: "Movie Title" },
-    { id: 4, title: "Movie Title" },
-    { id: 5, title: "Movie Title" },
-    { id: 6, title: "Movie Title" },
-    { id: 7, title: "Movie Title" },
-    { id: 8, title: "Movie Title" },
-    { id: 9, title: "Movie Title" }
-  ];
+  useEffect(() => {
+    fetchUserData();
+  }, []);
+
+  const fetchUserData = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const reviewsRes = await fetch("http://localhost:5000/api/reviews/my-reviews", {
+        headers: { "Authorization": `Bearer ${token}` }
+      });
+      const reviews = await reviewsRes.json();
+      setUserReviews(reviews);
+
+      const movies = await Promise.all(
+        reviews.map(async (review) => {
+          const movieRes = await fetch(`http://localhost:5000/api/movies/${review.movieId}`);
+          const movie = await movieRes.json();
+          return movie;
+        })
+      );
+      setWatchHistory(movies);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return <div className="loading-screen">Loading profile...</div>;
+  }
 
   return (
     <div className="profilepage-container">
@@ -40,8 +68,8 @@ function ProfilePage() {
               <p>Change Password</p>
               <p onClick={() => {
                 localStorage.removeItem("token");
-                window.location.href = "/";}}>Log Out
-              </p>
+                window.location.href = "/";
+              }}>Log Out</p>
               <p className="delete-account-text">Delete Account</p>
             </div>
           )}
@@ -57,11 +85,16 @@ function ProfilePage() {
           <h2>Recent Watches</h2>
           <a href="/home">See more...</a>
         </div>
-
-        <div className="movie-grid">
-          {recentWatches.map((movie) => (
-            <MovieCard key={movie.id} title={movie.title} />
-          ))}
+        <div className="watches-box">
+          <div className="movie-grid">
+            {watchHistory.length > 0 ? (
+              watchHistory.slice(0, 8).map((movie) => (
+                <MovieCard key={movie.tmdbId} movie={movie} />
+              ))
+            ) : (
+              <p className="empty-message">No movies watched yet. Write a review!</p>
+            )}
+          </div>
         </div>
       </div>
 
@@ -70,10 +103,17 @@ function ProfilePage() {
           <h2>Recent Reviews</h2>
           <a href="/reviews">See more...</a>
         </div>
-
         <div className="recent-reviews-row">
-          <div className="recent-reviews-box"></div>
-          <div className="recent-reviews-box"></div>
+          {userReviews.length > 0 ? (
+            userReviews.slice(0, 2).map((review) => (
+              <div key={review._id} className="recent-reviews-box">
+                <p><strong>Rating: {review.rating}/5</strong></p>
+                <p>{review.comment?.substring(0, 100)}</p>
+              </div>
+            ))
+          ) : (
+            <p className="empty-message">No reviews yet. Write your first review!</p>
+          )}
         </div>
       </div>
 

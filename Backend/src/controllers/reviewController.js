@@ -1,15 +1,33 @@
 import Review from "../models/Review.js";
 import Movie from "../models/Movie.js";
+import tmdbService from "../services/tmdbService.js";
 
 // Add review for a movie
 export const addReview = async (req, res) => {
   try {
     const { movieId, rating, comment } = req.body;
     
-    // Check if movie exists
-    const movie = await Movie.findOne({ tmdbId: movieId });
+    // Check if movie exists in database, if not, fetch from TMDB and save
+    let movie = await Movie.findOne({ tmdbId: movieId });
     if (!movie) {
-      return res.status(404).json({ message: "Movie not found" });
+      console.log("Movie not found in DB, fetching from TMDB...");
+      const tmdbMovie = await tmdbService.getMovieDetails(movieId);
+      if (tmdbMovie) {
+        movie = await Movie.create({
+          title: tmdbMovie.title,
+          overview: tmdbMovie.overview,
+          poster_path: tmdbMovie.poster_path,
+          backdrop_path: tmdbMovie.backdrop_path,
+          release_date: tmdbMovie.release_date,
+          vote_average: tmdbMovie.vote_average,
+          tmdbId: tmdbMovie.id.toString(),
+          popularity: tmdbMovie.popularity,
+          genres: tmdbMovie.genres || []
+        });
+        console.log("Movie added to DB:", movie.title);
+      } else {
+        return res.status(404).json({ message: "Movie not found on TMDB" });
+      }
     }
     
     // Check if user already reviewed this movie
@@ -32,6 +50,7 @@ export const addReview = async (req, res) => {
     const populatedReview = await review.populate("userId", "username");
     res.status(201).json(populatedReview);
   } catch (error) {
+    console.error("Add review error:", error);
     res.status(500).json({ message: error.message });
   }
 };

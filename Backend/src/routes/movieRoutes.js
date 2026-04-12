@@ -9,7 +9,8 @@ import
   addMovie,
   updateMovie,
   deleteMovie,
-  syncMovies
+  syncMovies,
+  getMoviesByGenre
 } 
 
 from "../controllers/movieController.js";
@@ -18,14 +19,14 @@ import { protect, adminOnly } from "../middleware/authMiddleware.js";
 const router = express.Router();
 
 router.get("/", getAllMovies);
+router.post("/sync/tmdb", syncMovies); 
 router.get("/popular", getPopularMovies);
 router.get("/trending", getTrendingMovies);
 router.get("/search", searchMovies);
-router.get("/:id", getMovieById);
+router.get("/genre/:genreId", getMoviesByGenre); 
+router.get("/:id", getMovieById);                  
 
 router.post("/", protect, adminOnly, addMovie);
 router.put("/:id", protect, adminOnly, updateMovie);
 router.delete("/:id", protect, adminOnly, deleteMovie);
-router.post("/sync/tmdb", syncMovies);
-
 export default router;
