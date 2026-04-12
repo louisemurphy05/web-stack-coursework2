@@ -632,11 +632,135 @@ html, body, #root {
   font-size: 16px;
 }
 
-/* ---------------------------- */
-/* USER PAGE CSS */
-/* ---------------------------- */
+/* ------------------------ */
+/* USERS PAGE CSS */
+/* ------------------------ */
 
+.admin-users-container {
+  max-width: 1400px;
+  min-height: calc(103vh - 40px);
+  margin: 10px auto;
+  background: #1a1919;
+  border-radius: 15px;
+  padding: 30px 47px 90px;
+  color: white;
+}
 
+.admin-users-section {
+  background: #0e0d0d;
+  border-radius: 15px;
+  padding: 20px;
+  outline: 1px solid #2a2a2a;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.admin-users-header {
+  justify-content: center;
+  position: relative;
+}
+
+.admin-users-search {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.admin-users-table-wrap {
+  overflow-x: auto;
+}
+
+.admin-users-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: transparent;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.admin-users-table th,
+.admin-users-table td {
+  border: 1px solid #8c8484;
+  padding: 14px 12px;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.admin-users-table th {
+  color: #f2f2f2;
+  font-size: 18px;
+  font-weight: 700;
+  background: #111;
+}
+
+.admin-users-table thead tr:first-child th:first-child {
+  border-top-left-radius: 14px;
+}
+
+.admin-users-table thead tr:first-child th:last-child {
+  border-top-right-radius: 14px;
+}
+
+.admin-users-table tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 14px;
+}
+
+.admin-users-table tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 14px;
+}
+
+.admin-users-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.admin-user-username-cell {
+  color: #f2f2f2;
+  font-size: 18px;
+  font-weight: 500;
+  text-align: left;
+}
+
+.admin-user-email-cell {
+  color: #f2f2f2;
+  font-size: 18px;
+  font-weight: 500;
+  text-align: left;
+}
+
+.admin-user-action-cell {
+  text-align: center;
+}
+
+.admin-users-table th:nth-child(1),
+.admin-users-table td:nth-child(1) {
+  width: 30%;
+}
+
+.admin-users-table th:nth-child(2),
+.admin-users-table td:nth-child(2) {
+  width: 40%;
+}
+
+.admin-users-table th:nth-child(3),
+.admin-users-table td:nth-child(3) {
+  width: 30%;
+}
+
+.admin-users-table .admin-delete-btn {
+  width: 175px;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 0;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+  margin: 8px auto;
+  display: block;
+  outline: 1px solid #2a2a2a;
+  background: #ad2727;
+  color: white;
+}
 
 /* ---------------------------- */
 /* REVIEWS PAGE CSS */
