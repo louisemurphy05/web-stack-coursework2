@@ -1,4 +1,5 @@
 import User from "../models/User.js";
+import Review from "../models/Review.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
@@ -130,16 +131,23 @@ export const updateProfile = async (req, res) => {
   }
 };
 
-// Delete user account
+// Delete user account 
 export const deleteAccount = async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
+    
+    // Delete all reviews by this user
+    await Review.deleteMany({ userId: req.user.id });
+    
+    // Delete the user
     await user.deleteOne();
+    
     res.json({ message: "Account deleted successfully" });
   } catch (error) {
+    console.error("Error deleting account:", error);
     res.status(500).json({ message: error.message });
   }
 };

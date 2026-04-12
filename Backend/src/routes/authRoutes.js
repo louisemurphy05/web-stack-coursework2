@@ -18,6 +18,6 @@ router.post("/login", login);
 
 router.get("/profile", protect, getProfile);
 router.put("/profile", protect, updateProfile);
-router.delete("/profile", protect, deleteAccount);
+router.delete("/delete-account", protect, deleteAccount);
 
 export default router;

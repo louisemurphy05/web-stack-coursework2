@@ -9,6 +9,8 @@ function ProfilePage() {
   const [watchHistory, setWatchHistory] = useState([]);
   const [userReviews, setUserReviews] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -75,6 +77,37 @@ function ProfilePage() {
     }
   };
 
+  const handleDeleteAccount = async () => {
+    setDeleting(true);
+    const token = localStorage.getItem("token");
+    
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/delete-account", {
+        method: "DELETE",
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      });
+
+      if (response.ok) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        alert("Account deleted successfully");
+        navigate("/login");
+      } else {
+        const error = await response.json();
+        alert(error.message || "Failed to delete account");
+        setShowDeleteConfirm(false);
+      }
+    } catch (error) {
+      console.error("Error deleting account:", error);
+      alert("Failed to delete account");
+      setShowDeleteConfirm(false);
+    } finally {
+      setDeleting(false);
+    }
+  };
+
   if (loading) {
     return <div className="loading-screen">Loading profile...</div>;
   }
@@ -103,7 +136,12 @@ function ProfilePage() {
                 localStorage.removeItem("token");
                 window.location.href = "/";
               }}>Log Out</p>
-              <p className="delete-account-text">Delete Account</p>
+              <p 
+                className="delete-account-text"
+                onClick={() => setShowDeleteConfirm(true)}
+              >
+                Delete Account
+              </p>
             </div>
           )}
         </div>
@@ -164,6 +202,69 @@ function ProfilePage() {
           )}
         </div>
       </div>
+
+      {/* Delete Account Confirmation Popup */}
+      {showDeleteConfirm && (
+        <div style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: "rgba(0,0,0,0.8)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          zIndex: 9999
+        }}>
+          <div style={{
+            background: "#1a1919",
+            padding: "30px",
+            borderRadius: "15px",
+            maxWidth: "400px",
+            textAlign: "center",
+            border: "1px solid #2a2a2a"
+          }}>
+            <h3 style={{ color: "white", marginBottom: "20px" }}>Delete Account</h3>
+            <p style={{ color: "#d9d9d9", marginBottom: "20px" }}>
+              Are you sure you want to delete your account?
+            </p>
+            <p style={{ color: "#ff9999", marginBottom: "20px", fontSize: "14px" }}>
+              This action cannot be undone. All your reviews and data will be permanently deleted.
+            </p>
+            <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
+              <button 
+                onClick={() => setShowDeleteConfirm(false)}
+                style={{
+                  padding: "10px 20px",
+                  background: "#2a2a2a",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "8px",
+                  cursor: "pointer"
+                }}
+                disabled={deleting}
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={handleDeleteAccount}
+                style={{
+                  padding: "10px 20px",
+                  background: "#ad2727",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "8px",
+                  cursor: "pointer"
+                }}
+                disabled={deleting}
+              >
+                {deleting ? "Deleting..." : "Delete Account"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <Navbar />
     </div>
