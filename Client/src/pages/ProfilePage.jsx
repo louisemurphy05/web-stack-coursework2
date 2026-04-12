@@ -107,6 +107,8 @@ function ProfilePage() {
           {userReviews.length > 0 ? (
             userReviews.slice(0, 2).map((review) => (
               <div key={review._id} className="recent-reviews-box">
+                <p><strong>Movie: {watchHistory.find(m => m.tmdbId === review.movieId)?.title || "Loading..."}</strong></p>
+                <p><strong>Year: {watchHistory.find(m => m.tmdbId === review.movieId)?.release_date?.substring(0, 4) || "N/A"}</strong></p>
                 <p><strong>Rating: {review.rating}/5</strong></p>
                 <p>{review.comment?.substring(0, 100)}</p>
               </div>

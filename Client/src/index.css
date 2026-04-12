@@ -61,14 +61,6 @@
   border: 2px solid #8c8484;
 }
 
-.movie-card p {
-  margin: 8px 0 0;
-  text-align: center;
-  font-size: 14px;
-  color: #d9d9d9;
-}
-
-
 .movie-year {
   font-size: 12px;
   color: #8c8484;
@@ -366,47 +358,6 @@
   justify-content: center;
 }
 
-/* Swiper Custom Styles */
-.movie-swiper {
-  padding: 10px 40px;
-  position: relative;
-}
-
-.movie-swiper .swiper-button-next,
-.movie-swiper .swiper-button-prev {
-  color: white;
-  background: rgba(0, 0, 0, 0.6);
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.movie-swiper .swiper-button-next:after,
-.movie-swiper .swiper-button-prev:after {
-  font-size: 14px;
-  font-weight: bold;
-}
-
-.movie-swiper .swiper-button-next {
-  right: 5px;
-}
-
-.movie-swiper .swiper-button-prev {
-  left: 5px;
-}
-
-.movie-swiper .swiper-button-next:hover,
-.movie-swiper .swiper-button-prev:hover {
-  background: rgba(0, 0, 0, 0.8);
-}
-
-.movie-swiper .swiper-button-disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
-}
-
 .movie-swiper .swiper-slide {
   overflow: visible;
 }
@@ -702,14 +653,6 @@
   color: white;
 }
 
-/* Fix search row alignment */
-.search-row {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
 .search-row input {
   flex: 1;
   margin-bottom: 0;
@@ -721,7 +664,6 @@
   padding: 10px 20px;
 }
 
-/* Improved selected movie indicator */
 .selected-movie {
   background: rgba(76, 175, 80, 0.15);
   border-left: 4px solid #4caf50;
@@ -732,15 +674,6 @@
   display: flex;
   align-items: center;
   gap: 12px;
-}
-
-.selected-movie {
-  background: rgba(76, 175, 80, 0.15);
-  border-left: 4px solid #4caf50;
-  padding: 12px 16px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  color: white;
 }
 
 .selected-movie p {
