@@ -1,3 +1,7 @@
+/**
+ * This is the primary page where users discover and browse movies.
+ */
+
 import { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Navbar from "../components/Navbar";
@@ -7,17 +11,19 @@ import "swiper/css";
 import "../index.css";
 
 function HomePage() {
-  const [trendingMovies, setTrendingMovies] = useState([]);
-  const [popularMovies, setPopularMovies] = useState([]);
-  const [displayMovies, setDisplayMovies] = useState([]);
-  const [searchResults, setSearchResults] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [isSearching, setIsSearching] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const [selectedGenre, setSelectedGenre] = useState("");
-  const [sortOrder, setSortOrder] = useState("");
-  const [isFiltering, setIsFiltering] = useState(false);
+  // State variables
+  const [trendingMovies, setTrendingMovies] = useState([]);     // Weekly trending movies
+  const [popularMovies, setPopularMovies] = useState([]);       // Most popular movies
+  const [displayMovies, setDisplayMovies] = useState([]);       // Movies filtered by genre
+  const [searchResults, setSearchResults] = useState([]);       // Movies from search
+  const [searchQuery, setSearchQuery] = useState("");           // Search input value
+  const [isSearching, setIsSearching] = useState(false);        // Show search results mode
+  const [loading, setLoading] = useState(true);                 // Loading indicator
+  const [selectedGenre, setSelectedGenre] = useState("");       // Selected genre filter
+  const [sortOrder, setSortOrder] = useState("");               // Sort by rating (highest/lowest)
+  const [isFiltering, setIsFiltering] = useState(false);        // Show genre filter mode
 
+  // Available movie genres with TMDB IDs
   const genres = [
     { id: 28, name: "Action" },
     { id: 35, name: "Comedy" },
@@ -41,6 +47,9 @@ function HomePage() {
     fetchMovies();
   }, []);
 
+  /**
+   * Fetch trending and popular movies from API
+   */
   const fetchMovies = async () => {
     setLoading(true);
     try {
@@ -55,6 +64,9 @@ function HomePage() {
     }
   };
 
+  /**
+   * Fetch movies by selected genre
+   */
   const fetchMoviesByGenre = async (genreId) => {
     setLoading(true);
     setIsFiltering(true);
@@ -68,6 +80,10 @@ function HomePage() {
     }
   };
 
+  /**
+   * Handle genre selection from dropdown
+   * Fetches movies for selected genre
+   */
   const handleGenreChange = async (e) => {
     const genreValue = e.target.value;
     setSelectedGenre(genreValue);
@@ -84,6 +100,10 @@ function HomePage() {
     setSortOrder("");
   };
 
+  /**
+   * Handle sorting by rating
+   * Sorts currently displayed movies (search results, genre filter, or popular)
+   */
   const handleSortChange = (e) => {
     const order = e.target.value;
     setSortOrder(order);
@@ -103,6 +123,7 @@ function HomePage() {
       moviesToSort.sort((a, b) => (a.vote_average || 0) - (b.vote_average || 0));
     }
     
+    // Update the appropriate state based on current mode
     if (isSearching) {
       setSearchResults(moviesToSort);
     } else if (isFiltering) {
@@ -112,6 +133,9 @@ function HomePage() {
     }
   };
 
+  /**
+   * Handle movie search
+   */
   const handleSearch = async () => {
     if (!searchQuery.trim()) {
       setIsSearching(false);
@@ -132,12 +156,19 @@ function HomePage() {
     }
   };
 
+  /**
+   * Trigger search on Enter key press
+   */
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       handleSearch();
     }
   };
 
+  /**
+   * Clear all active filters and return to default view
+   * Resets search, genre filter, and sort order
+   */
   const clearFilters = () => {
     setSelectedGenre("");
     setSortOrder("");
@@ -170,7 +201,7 @@ function HomePage() {
             onKeyPress={handleKeyPress}
           />
           <button className="search-icon-btn" onClick={handleSearch}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
               <circle cx="11" cy="11" r="8"></circle>
               <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
@@ -178,6 +209,7 @@ function HomePage() {
         </div>
       </div>
 
+      {/* Filter Controls*/}
       <div className="homepage-filters">
         <select 
           className="filter-dropdown" 
@@ -200,6 +232,7 @@ function HomePage() {
           <option value="lowest">Lowest Rated to Highest Rated</option>
         </select>
 
+        {/* Show Clear Filters button only when filters are active */}
         {(isFiltering || isSearching || selectedGenre || sortOrder) && (
           <button className="clear-filters-btn" onClick={clearFilters}>
             Clear Filters
@@ -207,19 +240,21 @@ function HomePage() {
         )}
       </div>
 
+      {/* Search Results */}
       {isSearching && (
-  <div className="homepage-section">
-    <div className="section-header">
-      <h2>Search Results</h2>
-    </div>
-    <div className="movie-grid">
-      {searchResults.map((movie) => (
-        <MovieCard key={movie.id} movie={movie} />
-      ))}
-    </div>
-  </div>
-)}
+        <div className="homepage-section">
+          <div className="section-header">
+            <h2>Search Results</h2>
+          </div>
+          <div className="movie-grid">
+            {searchResults.map((movie) => (
+              <MovieCard key={movie.id} movie={movie} />
+            ))}
+          </div>
+        </div>
+      )}
 
+      {/* Genre Filter*/}
       {isFiltering && !isSearching && (
         <div className="homepage-section">
           <div className="section-header">
@@ -235,6 +270,7 @@ function HomePage() {
 
       {!isSearching && !isFiltering && (
         <>
+          {/* Trending Movies Carousel */}
           <div className="homepage-section">
             <div className="section-header">
               <h2>Trending Now</h2>
@@ -266,6 +302,7 @@ function HomePage() {
             </div>
           </div>
 
+          {/* Popular Movies Carousel */}
           <div className="homepage-section">
             <div className="section-header">
               <h2>Popular Movies</h2>

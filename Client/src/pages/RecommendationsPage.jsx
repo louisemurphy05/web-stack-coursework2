@@ -1,3 +1,7 @@
+/**
+ * Displays a grid of randomly selected movies for users who need inspiration.
+ */
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
@@ -6,35 +10,49 @@ import { getRandomMovies } from "../api/movieApi";
 import "../index.css";
 
 function RecommendationsPage() {
-  const [movies, setMovies] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  // State variables
+  const [movies, setMovies] = useState([]);    // Array of random movies
+  const [loading, setLoading] = useState(true); // Loading indicator
+  const [error, setError] = useState(null);     // Error message
   const navigate = useNavigate();
 
+  /**
+   * Fetch random movies from the API
+   * Requests 16 random movies from the database
+   */
   const fetchRandomMovies = async () => {
-  setLoading(true);
-  setError(null);
-  try {
-    console.log("Calling getRandomMovies with limit 16");
-    const randomMovies = await getRandomMovies(16);
-    console.log("Movies received:", randomMovies.length); // Should be 16
-    setMovies(randomMovies.slice(0, 16));
-  } catch (error) {
-    console.error("Error fetching random movies:", error);
-    setError("Failed to load movies. Please try again.");
-  } finally {
-    setLoading(false);
-  }
-};
+    setLoading(true);
+    setError(null);
+    try {
+      console.log("Calling getRandomMovies with limit 16");
+      const randomMovies = await getRandomMovies(16);
+      console.log("Movies received:", randomMovies.length);
+      setMovies(randomMovies.slice(0, 16));
+    } catch (error) {
+      console.error("Error fetching random movies:", error);
+      setError("Failed to load movies. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  // Fetch random movies
   useEffect(() => {
     fetchRandomMovies();
   }, []);
 
+  /**
+   * Refresh the movie selection
+   * Fetches a new set of random movies
+   */
   const handleRandomize = () => {
     fetchRandomMovies();
   };
 
+  /**
+   * Navigate to movie details page when a movie is clicked
+   * @param {string} movieId - TMDB ID of the selected movie
+   */
   const handleMovieClick = (movieId) => {
     navigate(`/movie/${movieId}`);
   };
@@ -56,6 +74,7 @@ function RecommendationsPage() {
 
   return (
     <div className="recommendations-container">
+      {/* Header with Randomize Button */}
       <div className="recommendations-header">
         <div className="recommendations-brand">
           <span className="logo-icon">🎬</span>

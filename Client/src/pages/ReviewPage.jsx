@@ -1,17 +1,26 @@
+/**
+ * Allows authenticated users to write and submit reviews for movies.
+ */
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import "../index.css";
 
 function ReviewPage() {
-  const [filmName, setFilmName] = useState("");
-  const [thoughts, setThoughts] = useState("");
-  const [rating, setRating] = useState(0);
-  const [searchResults, setSearchResults] = useState([]);
-  const [selectedMovie, setSelectedMovie] = useState(null);
-  const [loading, setLoading] = useState(false);
+  // State variables
+  const [filmName, setFilmName] = useState("");           // Search input
+  const [thoughts, setThoughts] = useState("");            // Review comment
+  const [rating, setRating] = useState(0);                 // Star rating (1-5)
+  const [searchResults, setSearchResults] = useState([]);  // Movie search results
+  const [selectedMovie, setSelectedMovie] = useState(null); // Movie being reviewed
+  const [loading, setLoading] = useState(false);           // Search loading indicator
   const navigate = useNavigate();
 
+  /**
+   * Search for movies by title
+   * Fetches from TMDB API via backend
+   */
   const searchMovie = async () => {
     if (!filmName.trim()) return;
     setLoading(true);
@@ -26,13 +35,23 @@ function ReviewPage() {
     }
   };
 
+  /**
+   * Select a movie from search results
+   * Sets selected movie and clears search results
+   * @param {Object} movie - Selected movie object
+   */
   const selectMovie = (movie) => {
     setSelectedMovie(movie);
     setFilmName(movie.title);
     setSearchResults([]);
   };
 
+  /**
+   * Submit review to backend
+   * On success, redirects to profile page
+   */
   const handleSubmit = async () => {
+    // Validation checks
     if (!selectedMovie) {
       alert("Please select a movie from search results");
       return;
@@ -82,6 +101,7 @@ function ReviewPage() {
         <div className="review-title-line"></div>
 
         <div className="review-form">
+          {/* Movie Search Section */}
           <label>Search Film:</label>
           <div className="search-row">
             <input
@@ -95,6 +115,7 @@ function ReviewPage() {
             </button>
           </div>
 
+          {/* Search Results Dropdown */}
           {searchResults.length > 0 && (
             <div className="search-results">
               {searchResults.map((movie) => (
@@ -108,6 +129,7 @@ function ReviewPage() {
               ))}
             </div>
           )}
+
 
           {selectedMovie && (
             <div className="selected-movie">
@@ -123,6 +145,7 @@ function ReviewPage() {
               placeholder="Write your review here..."
             />
 
+            {/* Star Rating Selector */}
             <div className="review-stars">
                 {[1, 2, 3, 4, 5].map((star) => (
                     <span
@@ -136,6 +159,7 @@ function ReviewPage() {
             </div>
           </div>
 
+           {/* Submit Button */}
           <button className="submit-review-btn" onClick={handleSubmit}>
             Submit Review
           </button>

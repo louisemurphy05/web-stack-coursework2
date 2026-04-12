@@ -1,3 +1,7 @@
+/**
+ * This component displays the user's profile information, watch history,
+ * and reviews. 
+ */
 import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import MovieCard from "../components/MovieCard";
@@ -5,6 +9,7 @@ import "../index.css";
 import { useNavigate } from "react-router-dom";
 
 function ProfilePage() {
+  // State variables
   const [showSettings, setShowSettings] = useState(false);
   const [watchHistory, setWatchHistory] = useState([]);
   const [userReviews, setUserReviews] = useState([]);
@@ -13,6 +18,7 @@ function ProfilePage() {
   const [deleting, setDeleting] = useState(false);
   const navigate = useNavigate();
 
+  // Fetch user data when component mounts
   useEffect(() => {
     fetchUserData();
   }, []);
@@ -31,6 +37,7 @@ function ProfilePage() {
       const reviews = await reviewsRes.json();
       setUserReviews(reviews);
 
+      // Get unique movie IDs from reviews to avoid duplicate API calls
       const uniqueMovieIds = [...new Set(reviews.map((review) => review.movieId))];
 
       const movies = await Promise.all(
@@ -90,6 +97,7 @@ function ProfilePage() {
       });
 
       if (response.ok) {
+         // Clear local storage and redirect to login
         localStorage.removeItem("token");
         localStorage.removeItem("user");
         alert("Account deleted successfully");
@@ -156,6 +164,7 @@ function ProfilePage() {
         </button>
       </div>
 
+    {/* Recent Watches Section - Movies user has reviewed */}
       <div className="profile-section">
         <div className="section-header">
           <h2>Recent Watches</h2>
@@ -173,6 +182,7 @@ function ProfilePage() {
         </div>
       </div>
 
+   {/* Recent Reviews Section - User's written reviews */}
       <div className="profile-section">
         <div className="section-header">
           <h2>Recent Reviews</h2>
