@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+// Review schema defining the structure of review documents in MongoDB, including fields for user reference, movie ID, 
+// rating, and comment
 const reviewSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,

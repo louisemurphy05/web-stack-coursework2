@@ -17,6 +17,7 @@ import
 from "../controllers/movieController.js";
 import { protect, adminOnly } from "../middleware/authMiddleware.js";
 
+// Movie routes for fetching movies, searching, and admin operations like adding/updating/deleting movies (which isn't functional)
 const router = express.Router();
 
 router.get("/", getAllMovies);

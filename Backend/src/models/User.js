@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 
+// User schema defining the structure of user documents in MongoDB, including fields for username, email, password,
+// and timestamps. Passwords are hashed before saving, and a method is provided for comparing passwords during login.
 const userSchema = new mongoose.Schema(
   {
     username: {

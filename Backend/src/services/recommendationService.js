@@ -350,7 +350,7 @@ export const getHybridRecommendations = async (userId = null, limit = 20) => {
       
       return combined;
     } else {
-      // For non-logged-in users: trending recommendations
+      // For non-logged-in users: trending recommendations (not even an option )
       return await getTrendingRecommendations(limit);
     }
   } catch (error) {

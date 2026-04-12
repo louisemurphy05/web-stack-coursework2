@@ -190,6 +190,7 @@ export const syncMovies = async (req, res) => {
   }
 };
 
+// Get movies by genre
 export const getMoviesByGenre = async (req, res) => {
   try {
     const { genreId } = req.params;
@@ -201,6 +202,7 @@ export const getMoviesByGenre = async (req, res) => {
   }
 };
 
+// Get random movies for homepage
 export const getRandomMovies = async (req, res) => {
   try {
     const limit = parseInt(req.query.limit) || 16;
