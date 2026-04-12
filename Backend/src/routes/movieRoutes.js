@@ -10,7 +10,8 @@ import
   updateMovie,
   deleteMovie,
   syncMovies,
-  getMoviesByGenre
+  getMoviesByGenre,
+  getRandomMovies
 } 
 
 from "../controllers/movieController.js";
@@ -30,4 +31,5 @@ router.get("/:id", getMovieById);
 router.post("/", protect, adminOnly, addMovie);
 router.put("/:id", protect, adminOnly, updateMovie);
 router.delete("/:id", protect, adminOnly, deleteMovie);
+
 export default router;

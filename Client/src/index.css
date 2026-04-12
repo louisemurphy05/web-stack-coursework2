@@ -87,7 +87,6 @@
   color: #8c8484;
 }
 
-/* Loading Screen */
 .loading-screen {
   display: flex;
   justify-content: center;
@@ -388,6 +387,7 @@
   cursor: pointer;
   transition: transform 0.2s;
   padding-top: 10px;
+  padding-left: 5px;
 }
 
 .movie-card:hover {
