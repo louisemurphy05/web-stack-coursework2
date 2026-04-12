@@ -612,7 +612,7 @@
 .submit-review-btn {
   width: 200px;                 
   align-self: center;
-  background: #f2f2f2;
+  background: #704189;
   color: #111;
   border: none;
   border-radius: 12px;          
@@ -624,7 +624,7 @@
 }
 
 .submit-review-btn:hover {
-  background: #e0e0e0;
+  background: #480d63;
 }
 
 .search-results {
@@ -722,7 +722,7 @@
 
 .search-submit-btn {
   width: 100px;
-  background: #f2f2f2;
+  background: #704189;
   color: #111;
   border: none;
   border-radius: 12px;
@@ -734,7 +734,7 @@
 }
 
 .search-submit-btn:hover {
-  background: #e0e0e0;
+  background: #480d63;
 }
 
 .search-submit-btn:disabled {
@@ -850,6 +850,10 @@
     0 10px 25px rgba(0, 0, 0, 0.6),
     0 0 15px rgba(0, 0, 0, 0.4);
   outline: #1e1d1d solid 1px;
+}
+
+.recommend-btn:hover {
+  background: #552f8a;
 }
 
 .profile-section {
