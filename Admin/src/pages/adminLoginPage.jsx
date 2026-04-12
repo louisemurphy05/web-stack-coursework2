@@ -1,80 +1,87 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { adminLogin } from "../api/authApi";
+import "../App.css";
 
 const AdminLoginPage = () => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-  e.preventDefault();
-  
-  // TEMPORARY TEST LOGIN - Remove after testing! 
-  if (username === "admin" && password === "admin") {
-    localStorage.setItem("adminToken", "test-token");
-    localStorage.setItem("adminUser", JSON.stringify({ username: "admin", isAdmin: true }));
-    navigate("/dashboard");
-    return;
-  }
-  //  END OF TEMPORARY CODE 
-  
-  setLoading(true);
-  setError("");
+  const handleLogin = async () => {
+    setError("");
 
-  try {
-    const user = await adminLogin(username, password);
-    
-    if (user.isAdmin) {
+    // TEMPORARY TEST LOGIN
+    if (email === "admin" && password === "admin") {
+      localStorage.setItem("adminToken", "test-token");
+      localStorage.setItem(
+        "adminUser",
+        JSON.stringify({ email: "admin", isAdmin: true })
+      );
       navigate("/dashboard");
-    } else {
-      setError("Access denied. Admin privileges required.");
+      return;
     }
-  } catch (err) {
-    setError(err.response?.data?.message || "Login failed");
-  } finally {
-    setLoading(false);
-  }
-};
+
+    setLoading(true);
+
+    try {
+      const user = await adminLogin(email, password);
+
+      localStorage.setItem("adminToken", user.token);
+      localStorage.setItem("adminUser", JSON.stringify(user));
+
+      navigate("/dashboard");
+    } catch (err) {
+      setError(err.response?.data?.message || "Login failed");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="login-container">
       <div className="login-card">
-        <h1>CineMatch Login</h1>
-        
-        {error && <div className="error-message">{error}</div>}
-        
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label>Username</label>
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
+        <div className="login-header">
+          <span className="logo-icon">🎬</span>
+          <h1>CineMatch</h1>
+        </div>
+
+        <p className="admin-login-message">ADMIN LOGIN</p>
+
+        <div className="login-form">
+          {error && (
+            <div className="error-box">
+              <span className="error-icon">⚠️</span>
+              <span className="error-text">{error}</span>
+            </div>
+          )}
+
+          <label>Email Address</label>
+          <input
+            type="text"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleLogin()}
+          />
+
+          <label>Password</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleLogin()}
+          />
+
+          <a href="#" className="forgot">Forgot Password?</a>
+
+          <div className="login-buttons admin-login-buttons">
+            <button className="login-btn" onClick={handleLogin} disabled={loading}>
+              {loading ? "Logging in..." : "Login"}
+            </button>
           </div>
-          
-          <div className="form-group">
-            <label>Password</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-          
-          <div className="form-links">
-            <a href="#" className="forgot-link">Forgot Password</a>
-          </div>
-          
-          <button type="submit" disabled={loading}>
-            {loading ? "Logging in..." : "Sign In"}
-          </button>
-        </form>
+        </div>
       </div>
     </div>
   );
