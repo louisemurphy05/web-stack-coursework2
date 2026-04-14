@@ -1,7 +1,7 @@
 # Movie Recommendation App 🎬
 
 ## Overview
-This is a full-stack web application that helps users discover movies based on their preferences. It reduces decision fatigue by providing personalised recommendations using user ratings and genres...
+A full-stack movie discovery and review platform. Users can browse trending and popular movies, search by title, filter by genre, sort by rating, and write reviews. The app includes a random movie picker for recommendations and an admin dashboard for managing users, movies, and reviews. Built with React, Node.js, Express, and MongoDB.
 
 ----------------------------------
 
